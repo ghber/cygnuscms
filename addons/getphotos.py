@@ -13,9 +13,16 @@ def parse(url):
 newphotos = 0
 
 sps = models.SiteProperties.all().fetch(1)
+# initialize flickruser to empty string in case no config was fetched
+print "" # not sure why this is needed to show output below
+flickruser = ""
 for sp in sps:
 	flickruser = sp.flickruser
 	flickrapikey = sp.flickrapikey
+
+if not flickruser:
+	print 'No Flickr accounts configured.'
+	exit()
 
 dom = parse('http://api.flickr.com/services/rest/?method=flickr.people.getPublicPhotos&user_id=' + flickruser + '&per_page=500&api_key=' + flickrapikey)
 for ph in dom.getElementsByTagName('photo'):
