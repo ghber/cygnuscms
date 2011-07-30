@@ -13,8 +13,8 @@ def parse(url):
 newphotos = 0
 
 sps = models.SiteProperties.all().fetch(1)
+print "Content-type: text/plain\n"
 # initialize flickruser to empty string in case no config was fetched
-print "" # not sure why this is needed to show output below
 flickruser = ""
 for sp in sps:
 	flickruser = sp.flickruser
@@ -43,6 +43,6 @@ for ph in dom.getElementsByTagName('photo'):
 		newphotos += 1
 
 if newphotos > 0:
-	print '<html>Added ' + str(newphotos) + ' New Flickr Photos</html>'
+	print 'Added ' + str(newphotos) + ' New Flickr Photos'
 else:
-	print '<html>No New Flickr Photos</html>'
+	print 'No New Flickr Photos'

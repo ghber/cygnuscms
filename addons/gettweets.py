@@ -31,14 +31,14 @@ def parse(url):
 newtweets = 0
 
 sps = models.SiteProperties.all().fetch(1)
+print "Content-type: text/plain\n"
 # initialize twitteruser to empty string in case no config was fetched
-print "" # not sure why this is needed to see output
 twitteruser = ""
 for sp in sps:
 	twitteruser = sp.twitteruser
 	
 if not twitteruser:
-	print "<html>No Twitter account configured</html>"
+	print "No Twitter account configured"
 	exit()
 	
 dom = parse('http://twitter.com/statuses/user_timeline.xml?screen_name=' + twitteruser)
@@ -55,6 +55,6 @@ for tw in dom.getElementsByTagName('status'):
 		newtweets += 1
 
 if newtweets > 0:
-	print '<html>Added ' + str(newtweets) + ' New Tweets</html>'
+	print 'Added ' + str(newtweets) + ' New Tweets'
 else:
-	print '<html>No New Tweets</html>'
+	print 'No New Tweets'
